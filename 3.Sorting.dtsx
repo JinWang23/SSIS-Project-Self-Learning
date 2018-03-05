@@ -1,0 +1,1019 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/31/2018 7:21:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JWANG23"
+  DTS:CreatorName="JWANG23\JinWang"
+  DTS:DTSID="{870EC67E-E2AB-4604-BC86-B2BC6514B3C3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="3 Sorting"
+  DTS:PackageType="5"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{D3F56225-4F83-43B1-B8A2-5B4C77EE00B2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{88902CE9-E8E9-4A5E-96E0-BDF5F34461A8}"
+      DTS:ObjectName="JWANG23\SQL2016SSDB.X-Factor">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=JWANG23\SQL2016SSDB;Initial Catalog=X-Factor;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[X Factor Contestants.xls]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{09986909-D7AF-4886-AF28-E96C80378A69}"
+      DTS:ObjectName="X Factor Contestants.xls">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\JinWang\Desktop\SSIS Learning\X Factor contestants.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Excel data into SQL Server and Sorted by Name"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{93D917D1-36F4-45FC-8AE6-04976858B618}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Excel data into SQL Server and Sorted by Name"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input].Columns[Sorted Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Sorted Name"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Sorted Name]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Mentor]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Sorted Name]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Sorted Name]"
+                      name="Copy of Sorted Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Sorted Name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]"
+                      name="Copy of Category"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Category]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]"
+                      name="Copy of Mentor"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Mentor]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Finalists$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  connectionManagerRefId="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Id]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Series]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Series]"
+                      name="Series"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Mentor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Mentor]"
+                      name="Mentor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Finished]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Finished]"
+                      name="Finished"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      dataType="r8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      dataType="r8"
+                      name="Series" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Mentor" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      dataType="r8"
+                      name="Finished" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Series]"
+                      name="Series" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      name="Mentor" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[Finished]"
+                      name="Finished" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tblFinalists]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+                  connectionManagerRefId="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Series]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Series]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Finished]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Finished]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Sorted Name]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Sorted Name"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Sorted Name]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Category]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Category"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]" />
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Mentor]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Mentor"
+                      externalMetadataColumnId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mentor]"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Series]"
+                      dataType="i4"
+                      name="Series" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mentor]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Mentor" />
+                    <externalMetadataColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Finished]"
+                      dataType="i4"
+                      name="Finished" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Series]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Mentor]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Finished]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Id]"
+                      name="Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Sorted Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Sorted Name]"
+                      name="Sorted Name"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Series]"
+                      name="Series">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Series]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Category]"
+                      name="Category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Mentor]"
+                      name="Mentor">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Mentor]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output].Columns[Finished]"
+                      name="Finished">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output].Columns[Finished]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Data Conversion Output]"
+              endId="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Excel Source Output]"
+              endId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Inputs[Sort Input]"
+              name="Excel Source Output"
+              startId="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Sort Output]"
+              endId="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion.Inputs[Data Conversion Input]"
+              name="Sort Output"
+              startId="Package\Load Excel data into SQL Server and Sorted by Name\Sort.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate tblFinalists"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D6626617-B18B-4DE5-9A6E-4436BDDA9198}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate tblFinalists"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{88902CE9-E8E9-4A5E-96E0-BDF5F34461A8}"
+          SQLTask:SqlStatementSource="truncate table tblFinalists;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{01A26DBE-14DE-4FCF-B611-A62FC2171B04}"
+      DTS:From="Package\Truncate tblFinalists"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Excel data into SQL Server and Sorted by Name" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="330,42"
+          Id="Package\Load Excel data into SQL Server and Sorted by Name"
+          TopLeft="34.8888888888889,114.805555555556" />
+        <NodeLayout
+          Size="173.5,42"
+          Id="Package\Truncate tblFinalists"
+          TopLeft="102.305555555556,25.8611111111111" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="189.055555555556,67.8611111111111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.8333333333334,46.9444444444445"
+              Start="0,0"
+              End="10.8333333333334,39.4444444444445">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.4722222222222" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.4722222222222"
+                    Point2="0,23.4722222222222"
+                    Point3="4,23.4722222222222" />
+                  <mssgle:LineSegment
+                    End="6.83333333333337,23.4722222222222" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.83333333333337,23.4722222222222"
+                    Point2="10.8333333333334,23.4722222222222"
+                    Point3="10.8333333333334,27.4722222222222" />
+                  <mssgle:LineSegment
+                    End="10.8333333333334,39.4444444444445" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-12.5765755208333,28.4722222222222,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Excel data into SQL Server and Sorted by Name">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="138.5,42"
+          Id="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source"
+          TopLeft="70.8333333333333,23.3333333333333" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination"
+          TopLeft="49.1666666666667,263.333333333333" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Load Excel data into SQL Server and Sorted by Name\Data Conversion"
+          TopLeft="55.8333333333333,177.5" />
+        <NodeLayout
+          Size="98,42"
+          Id="Package\Load Excel data into SQL Server and Sorted by Name\Sort"
+          TopLeft="80.8333333333333,105" />
+        <EdgeLayout
+          Id="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Sort Output]"
+          TopLeft="131.833333333333,147">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.5"
+              Start="0,0"
+              End="0,23">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Excel Source Output]"
+          TopLeft="140.083333333333,65.3333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-10.25,39.6666666666667"
+              Start="0,0"
+              End="-10.25,32.1666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.8333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.8333333333333"
+                    Point2="0,19.8333333333333"
+                    Point3="-4,19.8333333333333" />
+                  <mssgle:LineSegment
+                    End="-6.25,19.8333333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-6.25,19.8333333333333"
+                    Point2="-10.25,19.8333333333333"
+                    Point3="-10.25,23.8333333333333" />
+                  <mssgle:LineSegment
+                    End="-10.25,32.1666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Excel data into SQL Server and Sorted by Name.Paths[Data Conversion Output]"
+          TopLeft="134.25,219.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.8333333333333"
+              Start="0,0"
+              End="0,36.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Excel data into SQL Server and Sorted by Name\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Excel data into SQL Server and Sorted by Name\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

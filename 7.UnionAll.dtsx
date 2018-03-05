@@ -1,0 +1,1541 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/31/2018 7:21:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JWANG23"
+  DTS:CreatorName="JWANG23\JinWang"
+  DTS:DTSID="{3234657F-E7EE-439A-8555-23C91BAC2EEC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="7 UnionAll"
+  DTS:PackageType="5"
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{35917262-155D-4456-B1BE-FB84DE73E593}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C6CD4314-FFAD-4A8E-8289-197DC4D9F9D9}"
+      DTS:ObjectName="JWANG23\SQL2016SSDB.X-Factor">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=JWANG23\SQL2016SSDB;Initial Catalog=X-Factor;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[X Factor Contestants.xls]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{8DBBB0AC-6AEB-4DB0-9DBD-05C5BF2A35AB}"
+      DTS:ObjectName="X Factor Contestants.xls">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\JinWang\Desktop\SSIS Learning\X Factor contestants.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Truncate tblFinalists"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1F889DDE-FC4F-42DC-9B9A-94C4FD3597E1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate tblFinalists"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C6CD4314-FFAD-4A8E-8289-197DC4D9F9D9}"
+          SQLTask:SqlStatementSource="truncate table tblFinalists;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Union two Excel sheets and load into SQL Server"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{381BCB9E-DDA0-47E9-BF19-5CDB9D3FBD52}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Union two Excel sheets and load into SQL Server"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Mentor]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Name]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Name]"
+                      name="Copy of Name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]"
+                      name="Copy of Category"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Category]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]"
+                      codePage="936"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]"
+                      name="Copy of Mentor"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Mentor]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Finished1"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Finished1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  connectionManagerRefId="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Series]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Series]"
+                      name="Series"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Id]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Mentor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Mentor]"
+                      name="Mentor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Finished]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Finished]"
+                      name="Finished"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      dataType="r8"
+                      name="Series" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      dataType="r8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Mentor" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      dataType="r8"
+                      name="Finished" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Series]"
+                      name="Series" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      name="Mentor" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[Finished]"
+                      name="Finished" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Finished2"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Finished2$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  connectionManagerRefId="Package.ConnectionManagers[X Factor Contestants.xls]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Series]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Series]"
+                      name="Series"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Id]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Mentor]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Mentor]"
+                      name="Mentor"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Finished]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Finished]"
+                      name="Finished"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Series]"
+                      dataType="r8"
+                      name="Series" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Id]"
+                      dataType="r8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      name="Mentor" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].ExternalColumns[Finished]"
+                      dataType="r8"
+                      name="Finished" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Series]"
+                      name="Series" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Mentor]"
+                      name="Mentor" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[Finished]"
+                      name="Finished" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tblFinalists]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+                  connectionManagerRefId="Package.ConnectionManagers[JWANG23\SQL2016SSDB.X-Factor]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Series]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Series]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Finished]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Finished]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Name]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Name"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Name]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Category]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Category"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Category]" />
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Mentor]"
+                      cachedCodepage="936"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Copy of Mentor"
+                      externalMetadataColumnId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mentor]"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Mentor]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Series]"
+                      dataType="i4"
+                      name="Series" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Mentor]"
+                      codePage="936"
+                      dataType="str"
+                      length="50"
+                      name="Mentor" />
+                    <externalMetadataColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Finished]"
+                      dataType="i4"
+                      name="Finished" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Series]"
+                      name="Series"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Id]"
+                      name="Id">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Name]"
+                      name="Name">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Category]"
+                      name="Category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Mentor]"
+                      name="Mentor">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output].Columns[Finished]"
+                      name="Finished"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Union two Excel sheets and load into SQL Server\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Series]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Name]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Category]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Mentor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output].Columns[Finished]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Series]"
+                      cachedDataType="r8"
+                      cachedName="Series"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Series]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Id]"
+                      cachedDataType="r8"
+                      cachedName="Id"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Id]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Name"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Name]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Category]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Mentor]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Mentor"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Mentor]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2].Columns[Finished]"
+                      cachedDataType="r8"
+                      cachedName="Finished"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output].Columns[Finished]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Series]"
+                      name="Series" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Mentor]"
+                      name="Mentor" />
+                    <outputColumn
+                      refId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]"
+                      dataType="r8"
+                      lineageId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1].Columns[Finished]"
+                      name="Finished" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Union two Excel sheets and load into SQL Server.Paths[Data Conversion Output]"
+              endId="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Union two Excel sheets and load into SQL Server.Paths[Excel Source Output]"
+              endId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 1]"
+              name="Excel Source Output"
+              startId="Package\Union two Excel sheets and load into SQL Server\Excel Finished1.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\Union two Excel sheets and load into SQL Server.Paths[Excel Source Output1]"
+              endId="Package\Union two Excel sheets and load into SQL Server\Union All.Inputs[Union All Input 2]"
+              name="Excel Source Output"
+              startId="Package\Union two Excel sheets and load into SQL Server\Excel Finished2.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\Union two Excel sheets and load into SQL Server.Paths[Sort Output]"
+              endId="Package\Union two Excel sheets and load into SQL Server\Data Conversion.Inputs[Data Conversion Input]"
+              name="Sort Output"
+              startId="Package\Union two Excel sheets and load into SQL Server\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\Union two Excel sheets and load into SQL Server.Paths[Union All Output 1]"
+              endId="Package\Union two Excel sheets and load into SQL Server\Sort.Inputs[Sort Input]"
+              name="Union All Output 1"
+              startId="Package\Union two Excel sheets and load into SQL Server\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D74023B9-3C5D-4D4B-9265-5157A70E50B8}"
+      DTS:From="Package\Truncate tblFinalists"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Union two Excel sheets and load into SQL Server" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="308.5,42"
+          Id="Package\Union two Excel sheets and load into SQL Server"
+          TopLeft="13,114.5" />
+        <NodeLayout
+          Size="173.5,42"
+          Id="Package\Truncate tblFinalists"
+          TopLeft="72,33.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="158.75,75.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="8.5,39"
+              Start="0,0"
+              End="8.5,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.5"
+                    Point2="0,19.5"
+                    Point3="4,19.5" />
+                  <mssgle:LineSegment
+                    End="4.5,19.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.5,19.5"
+                    Point2="8.5,19.5"
+                    Point3="8.5,23.5" />
+                  <mssgle:LineSegment
+                    End="8.5,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-13.7432421875,24.5,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Union two Excel sheets and load into SQL Server">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination"
+          TopLeft="110.714285714286,407.857142857143" />
+        <NodeLayout
+          Size="120.5,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\Union All"
+          TopLeft="133.75,118.214285714286" />
+        <NodeLayout
+          Size="98,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\Sort"
+          TopLeft="143,207.25" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\Excel Finished1"
+          TopLeft="33.5714285714286,25" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\Data Conversion"
+          TopLeft="115.535714285714,301.964285714286" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Union two Excel sheets and load into SQL Server\Excel Finished2"
+          TopLeft="220.714285714286,25" />
+        <EdgeLayout
+          Id="Package\Union two Excel sheets and load into SQL Server.Paths[Union All Output 1]"
+          TopLeft="193,160.214285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.035714285714"
+              Start="0,0"
+              End="0,39.535714285714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.535714285714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Union two Excel sheets and load into SQL Server.Paths[Sort Output]"
+          TopLeft="192.767857142857,249.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.714285714286"
+              Start="0,0"
+              End="0,45.214285714286">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.214285714286" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Union two Excel sheets and load into SQL Server.Paths[Excel Source Output1]"
+          TopLeft="296.214285714286,67">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-83.464285714286,51.2142857142857"
+              Start="0,0"
+              End="-83.464285714286,43.7142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.3259038259038" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.3259038259038"
+                    Point2="0,30.3259038259038"
+                    Point3="-4,30.3259038259038" />
+                  <mssgle:LineSegment
+                    End="-79.464285714286,30.3259038259038" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-79.464285714286,30.3259038259038"
+                    Point2="-83.464285714286,30.3259038259038"
+                    Point3="-83.464285714286,34.3259038259038" />
+                  <mssgle:LineSegment
+                    End="-83.464285714286,43.7142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Union two Excel sheets and load into SQL Server.Paths[Excel Source Output]"
+          TopLeft="109.071428571429,67">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="66.1785714285714,51.2142857142857"
+              Start="0,0"
+              End="66.1785714285714,43.7142857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.3259038259038" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.3259038259038"
+                    Point2="0,30.3259038259038"
+                    Point3="4,30.3259038259038" />
+                  <mssgle:LineSegment
+                    End="62.1785714285714,30.3259038259038" />
+                  <mssgle:CubicBezierSegment
+                    Point1="62.1785714285714,30.3259038259038"
+                    Point2="66.1785714285714,30.3259038259038"
+                    Point3="66.1785714285714,34.3259038259038" />
+                  <mssgle:LineSegment
+                    End="66.1785714285714,43.7142857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Union two Excel sheets and load into SQL Server.Paths[Data Conversion Output]"
+          TopLeft="194.875,343.964285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.8928571428571"
+              Start="0,0"
+              End="0,56.3928571428571">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.3928571428571" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Union two Excel sheets and load into SQL Server\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Union two Excel sheets and load into SQL Server\Excel Finished1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Union two Excel sheets and load into SQL Server\Excel Finished2">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
